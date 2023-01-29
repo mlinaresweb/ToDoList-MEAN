@@ -1,0 +1,30 @@
+<div class="main">
+  <h1>My To Do List</h1>
+  <label for="addItemInput">What would you like to do today?</label>
+
+<input
+  #newItem
+  placeholder="add an item"
+  (keyup.enter)="addItem(newItem.value); newItem.value = ''"
+  class="lg-text-input"
+  id="addItemInput" />
+
+<button class="btn-primary" (click)="addItem(newItem.value)">Add</button>
+
+
+  <ul *ngIf="allItems">
+
+    <li class="item" *ngFor="let item of allItems;let i = index"><i class='fa fa-edit' (click)="editTodo(i)"></i>Todo: {{item.description | titlecase}} <button class="delete-btn" (click)="deleteItem(i)">X</button>
+    <p>Date: {{item.date}}</p>
+    <p>Time: {{item.time}}</p>
+    </li>
+  </ul>
+  <div *ngIf="editActive">
+    <form [formGroup]="todoForm">
+      <input type="text" formControlName="description">
+      <button (click)="sendEditTodo()">Edit</button>
+
+    </form>
+  </div>
+
+</div>
